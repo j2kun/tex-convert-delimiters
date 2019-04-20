@@ -53,4 +53,4 @@ for node in parsed_doc.children:
     if node.data == "mathmode":
         output_doc += handle_mathmode(node)
 
-print(output_doc)
+print(output_doc.rstrip('\n'))
