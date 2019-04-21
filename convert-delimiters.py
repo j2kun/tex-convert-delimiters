@@ -11,7 +11,7 @@ lark = Lark(r'''
          | INLINE text+ INLINE
 
          INLINE: "$"
-         OFFSETDOLLAR.2: "$$"
+         OFFSETDOLLAR: "$$"
          OFFSETOPEN: "\\["
          OFFSETCLOSE: "\\]"
 
