@@ -1,5 +1,7 @@
 # A Working Mathematician's Guide to Parsing
 
+Associated [blog post](https://jeremykun.com/2019/04/20/a-working-mathematicians-guide-to-parsing/)
+
 This scripts requires a working Python installation (version 2 or 3).
 
 To install the parser generator library
