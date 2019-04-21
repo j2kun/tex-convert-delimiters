@@ -8,9 +8,12 @@ lark = Lark(r'''
 
          mathmode: OFFSETDOLLAR text+ OFFSETDOLLAR
          | OFFSETOPEN text+ OFFSETCLOSE
+         | INLINEOPEN text+ INLINECLOSE
          | INLINE text+ INLINE
 
          INLINE: "$"
+         INLINEOPEN: "\\("
+         INLINECLOSE: "\\)"
          OFFSETDOLLAR: "$$"
          OFFSETOPEN: "\\["
          OFFSETCLOSE: "\\]"

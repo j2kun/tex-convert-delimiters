@@ -8,9 +8,12 @@ lark = Lark(r'''
 
          mathmode: OFFSETDOLLAR text+ OFFSETDOLLAR
          | OFFSETOPEN text+ OFFSETCLOSE
+         | INLINEOPEN text+ INLINECLOSE
          | INLINE text+ INLINE
 
          INLINE: "$"
+         INLINEOPEN: "\\("
+         INLINECLOSE: "\\)"
          OFFSETDOLLAR: "$$"
          OFFSETOPEN: "\\["
          OFFSETCLOSE: "\\]"
@@ -29,12 +32,12 @@ def handle_mathmode(tree_node):
        text between.'''
     starting_delimiter = tree_node.children[0].type
 
-    if starting_delimiter == 'INLINE':
+    if starting_delimiter in ['INLINE', 'INLINEOPEN']:
         return '\\(' + join_tokens(tree_node.children[1:-1]) + '\\)'
-    if starting_delimiter == 'OFFSETDOLLAR':
+    elif starting_delimiter in ['OFFSETDOLLAR', 'OFFSETOPEN']:
         return '\\[' + join_tokens(tree_node.children[1:-1]) + '\\]'
-    if starting_delimiter == 'OFFSETOPEN':
-        return '\\[' + join_tokens(tree_node.children[1:-1]) + '\\]'
+    else:
+        raise Exception("Unsupported mathmode type %s" % starting_delimiter)
 
 
 def handle_content(tree_node):
