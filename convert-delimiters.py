@@ -1,5 +1,6 @@
 import sys
 from lark import Lark
+from lark.lexer import Token
 
 lark = Lark(r'''
          tex: content+
@@ -51,6 +52,9 @@ parsed_doc = lark.parse(input_text)
 output_doc = ''
 
 for node in parsed_doc.children:
+    if type(node) == Token:
+        output_doc += str(node)
+        continue
     if node.data == "content":
         output_doc += handle_content(node)
     if node.data == "mathmode":
